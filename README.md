@@ -9,7 +9,7 @@ In this workshop we'll learn how to build cloud-enabled web applications with Vu
 - [Authentication](#adding-authentication)
 - [GraphQL API with AWS AppSync](#adding-a-graphql-api)
 - [Mocking and Testing](#local-mocking-and-testing)
-- [Predictions](#predictions)
+- [Predictions](#adding-predictions)
 - [Hosting](#hosting)
 - [Multiple Environments](#working-with-multiple-environments)
 - [Deploying via the Amplify Console](#amplify-console)
