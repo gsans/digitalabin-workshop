@@ -8,6 +8,7 @@ In this workshop we'll learn how to build cloud-enabled web applications with Vu
 
 - [Authentication](#adding-authentication)
 - [GraphQL API with AWS AppSync](#adding-a-graphql-api)
+- [Mocking and Testing](#local-mocking-and-testing)
 - [Predictions](#predictions)
 - [Hosting](#hosting)
 - [Multiple Environments](#working-with-multiple-environments)
@@ -133,7 +134,15 @@ Now, we'll run the push command and the cloud resources will be created in our A
 
 ```bash
 amplify push
+
+Current Environment: dev
+
+| Category | Resource name      | Operation | Provider plugin   |
+| -------- | ------------------ | --------- | ----------------- |
+| Auth     | amplifyappuuid     | Create    | awscloudformation |
+? Are you sure you want to continue? Yes
 ```
+
 
 To quickly check your newly created __Cognito User Pool__ you can run
 
@@ -152,12 +161,20 @@ The first thing we need to do is to configure our Vue application to be aware of
 To configure the app, open __main.js__ and add the following code below the last import:
 
 ```js
+import Vue from 'vue'
+import App from './App.vue'
 import Amplify, * as AmplifyModules from 'aws-amplify'
 import { AmplifyPlugin } from 'aws-amplify-vue'
 import awsconfig from './aws-exports'
 Amplify.configure(awsconfig)
 
 Vue.use(AmplifyPlugin, AmplifyModules)
+
+Vue.config.productionTip = false
+
+new Vue({
+  render: h => h(App),
+}).$mount('#app')
 ```
 
 Now, our app is ready to start using our AWS services.
@@ -278,11 +295,18 @@ Answer the following questions
 
 - Please select from one of the below mentioned services __GraphQL__
 - Provide API name: __RestaurantAPI__
-- Choose an authorization type for the API __API key__
+- Choose the default authorization type for the API __API key__
+- Enter a description for the API key: __(empty)__
+- After how many days from now the API key should expire (1-365): __180__
+- Do you want to configure advanced settings for the GraphQL API __Yes, I want to make some additional changes.__
+- Choose the additional authorization types you want to configure for the API (Press <space> to select, <a> to toggle all, <i> to invert selection) __None__
 - Do you have an annotated GraphQL schema? __No__
 - Do you want a guided schema creation? __Yes__
 - What best describes your project: __Single object with fields (e.g., “Todo” with ID, name, description)__
 - Do you want to edit the schema now? __Yes__
+
+> To select none just press `Enter`.
+
 
 > When prompted, update the schema to the following:   
 
@@ -321,6 +345,21 @@ amplify console api
 
 - Please select from one of the below mentioned services __GraphQL__
 
+### Local mocking and testing
+
+To mock and test the API locally, you can run the `mock` command:
+
+```sh
+amplify mock api
+```
+- Choose the code generation language target: __javascript__
+- Enter the file name pattern of graphql queries, mutations and subscriptions: __src/graphql/**/*.js__
+- Do you want to generate/update all possible GraphQL operations - queries, mutations and subscriptions: __Y__
+- Enter maximum statement depth [increase from default if your schema is deeply nested]: __2__
+
+This should open up the local GraphiQL editor.
+
+From here, we can now test the API locally.
 
 ### Adding mutations from within the AWS AppSync Console
 
