@@ -16,8 +16,8 @@ In this workshop we'll learn how to build cloud-enabled web applications with Vu
 
 ## Pre-requisites
 
-- Node: `12.9.0`. Visit [Node](https://nodejs.org/en/download/current/)
-- npm: `6.10.3`. Packaged with Node otherwise run upgrade
+- Node: `12.11.0`. Visit [Node](https://nodejs.org/en/download/current/)
+- npm: `6.11.3`. Packaged with Node otherwise run upgrade
 
 ```bash
 npm install -g npm
@@ -36,7 +36,6 @@ vue create amplify-app
 
 Vue CLI
 - ? Please pick a preset: __default (babel, eslint)__
-- ? Pick the package manager to use when installing dependencies: __NPM__
  
 Now change into the new app directory and make sure it runs
 
@@ -61,6 +60,7 @@ Next, we'll install the AWS Amplify CLI:
 ```bash
 npm install -g @aws-amplify/cli
 ```
+> If your installation fails. Try `npm install -g @aws-amplify/cli --unsafe-perm=true`.
 > If you have issues related to fsevents with npm install. Try: `npm audit fix --force`.
 
 Now we need to configure the CLI with our credentials:
